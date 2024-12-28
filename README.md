@@ -20,5 +20,9 @@ python3 dhcpattack.py
 ```
 > For basic attack
 ```
-python3 dhcpbasic.py
+python3 dhcpbasic.py -i wlan0
+```
+> For starved.py
+```
+sudo python3 starved.py -i wlan0 -c 0 -d 0.5
 ```
