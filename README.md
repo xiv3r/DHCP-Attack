@@ -19,5 +19,5 @@ python3 dhcpattack.py
 ```
 > For basic attack
 ```
-python3 basicattack.py
+python3 dhcpbasic.py
 ```
