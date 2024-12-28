@@ -1,6 +1,6 @@
 # About
 
-DHCP starvation attack which allocates all hosts of a subnet until DHCP cannot allocate ip to the clients.
+DHCP starvation attack which allocates a fake ips and mac to all subnet hosts until DHCP server cannot allocate ip to the clients.
 
 # Dependencies
 ```
