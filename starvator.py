@@ -1,4 +1,4 @@
-#!/bin/env
+#!/usr/bin/env
 
 from scapy.all import Ether, IP, UDP, BOOTP, DHCP, sendp, RandMAC
 import time
