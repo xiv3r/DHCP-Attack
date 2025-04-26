@@ -5,7 +5,7 @@ DHCP Starvation Attack is a type of denial-of-service (DoS) attack that targets 
 # Dependencies
 > Linux / Termux root
 ```
-sudo apt install python3 python3-pip
+sudo apt install python3 python3-pip scapy -y
 pip install scapy
 ```
 # Install
